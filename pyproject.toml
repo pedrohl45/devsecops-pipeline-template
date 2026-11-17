@@ -11,3 +11,7 @@ select = ["E", "F", "I", "B", "S"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+filterwarnings = [
+    # o Starlette avisa que o TestClient vai trocar de cliente HTTP; só silencia este aviso
+    "ignore:Using `httpx` with `starlette.testclient`:DeprecationWarning",
+]

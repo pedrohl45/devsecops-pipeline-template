@@ -21,3 +21,5 @@
 **Sem proteção de branch.** Em repositório privado de conta gratuita não existe. Em um repositório de verdade, proteja a `main` e exija o check `ci`.
 
 **O pip fica de fora da imagem final.** Na primeira versão o scan da imagem reprovou por CVE alta em `urllib3`, `msgpack` e `setuptools`, que não eram dependências do app: vinham embutidas no pip e no setuptools da imagem base. A saída foi um build em dois estágios (as dependências são instaladas no primeiro) e remover o pip e o setuptools da imagem final, onde não fazem falta.
+
+**Aviso de deprecação do TestClient: silenciado só esse aviso, sem trocar de pacote.** O Starlette avisa que o `TestClient` vai deixar de usar o `httpx` e sugere instalar outro pacote. Não troquei, porque não valido a origem de um pacote só porque uma mensagem sugeriu o nome. Fica o `httpx`, com o filtro apontando para esse aviso específico, e a troca entra quando a alternativa estiver confirmada.
