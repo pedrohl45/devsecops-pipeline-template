@@ -4,7 +4,7 @@ name: comentario-dependabot
 # Só roda se BOT_APP_ID e BOT_APP_KEY existirem; sem eles, o job termina sem falhar.
 on:
   pull_request:
-    types: [opened]
+    types: [opened, reopened]
 
 permissions:
   contents: read
