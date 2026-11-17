@@ -22,6 +22,12 @@ Outros workflows:
 - `release`: uma tag `vX.Y.Z` promove a imagem que já passou pelo CI, sem rebuild, para a tag da versão.
 - `comentario-dependabot`: um bot (GitHub App) comenta nos PRs do Dependabot. É opcional: sem as credenciais, o job termina sem falhar.
 
+## O que foi testado
+- `ci`: roda em PR e na `main` (lint, testes, scans, build com scan da imagem e publicação no GHCR).
+- `release`: a tag `v0.1.0` promoveu a imagem da `main` sem rebuild.
+- `pr-title` e `dependabot`: já rodaram em PRs reais do Dependabot.
+- `comentario-dependabot`: ainda **não foi testado de ponta a ponta**. Ele depende de um GitHub App criado por você; sem as credenciais o job só termina sem falhar.
+
 ## O que reprova o build de propósito
 - Segredo em qualquer commit do histórico.
 - CVE alta ou crítica nas dependências ou na imagem.
