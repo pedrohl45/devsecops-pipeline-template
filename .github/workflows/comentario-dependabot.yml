@@ -1,0 +1,38 @@
+name: comentario-dependabot
+
+# Versão genérica do bot que comenta nos PRs do Dependabot.
+# Só roda se BOT_APP_ID e BOT_APP_KEY existirem; sem eles, o job termina sem falhar.
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: read
+
+jobs:
+  comentar:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confere as credenciais do bot
+        id: cred
+        env:
+          APP_ID: ${{ secrets.BOT_APP_ID }}
+        run: echo "ok=$([ -n "$APP_ID" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.cred.outputs.ok == 'true'
+      - name: Token do GitHub App
+        if: steps.cred.outputs.ok == 'true'
+        id: token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_APP_KEY }}
+      - name: Comenta no PR
+        if: steps.cred.outputs.ok == 'true'
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          frase="$(python3 -c "import json,random;print(random.choice(json.load(open('.github/bot/frases.json'))))")"
+          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$frase"

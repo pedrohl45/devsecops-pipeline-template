@@ -1,0 +1,6 @@
+[
+  "Chegou atualização de dependência. Dá uma olhada no changelog antes de aprovar.",
+  "O CI já rodou os scans nesse PR. Se estiver verde, o risco conhecido é baixo; leia as notas de versão mesmo assim.",
+  "Dependência nova, pipeline de pé. Confere se o build da imagem passou e pode seguir.",
+  "Atualizar pouco e sempre dói menos do que atualizar tudo de uma vez."
+]
