@@ -19,3 +19,5 @@
 **Segredos por repositório, não por organização**, no plano gratuito. Em conta pessoal ou organização gratuita com repositório privado, o segredo de organização não está disponível.
 
 **Sem proteção de branch.** Em repositório privado de conta gratuita não existe. Em um repositório de verdade, proteja a `main` e exija o check `ci`.
+
+**O pip fica de fora da imagem final.** Na primeira versão o scan da imagem reprovou por CVE alta em `urllib3`, `msgpack` e `setuptools`, que não eram dependências do app: vinham embutidas no pip e no setuptools da imagem base. A saída foi um build em dois estágios (as dependências são instaladas no primeiro) e remover o pip e o setuptools da imagem final, onde não fazem falta.
